@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Register</title>
+
+     
+</head>
+
+<body class="" >
+
+    <div class="container" style = "margin-top: 80px; ">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 ">
+                        <img src = "img/xemailaudit.png" width = "100%" height = "100%" />
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                            </div>
+                            <div class="">
+                                    <% if (message != '') { %>
+                                    <div class="alert alert-primary" role="alert">
+                                    <%= message %> 
+                                    </div>
+                                    <% } %>
+                                </div>
+                            <form class="user" method="post" action="/checkRegister">
+                                <div class="form-group row">
+                                    <!-- <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="text" class="form-control form-control-user" name="firstname" placeholder="First Name" required>
+                                    </div> -->
+                                    <!-- <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" 
+                                            name="lastname" placeholder="Last Name" required>
+                                    </div> -->
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" 
+                                        name="email" placeholder="Email Address" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" 
+                                        name="password" placeholder="Password" required minlength="6">
+                                </div>
+                                
+                                <button class="btn btn-primary btn-user btn-block">
+                                    Register Account
+                                </button>
+                                <hr>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="/forgot-password">Forgot Password?</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="/">Already have an account? Login!</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+  
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../stylesheets/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <form action="/checkRegister" name="form1"onsubmit="required()" method="post">
+        <!-- <div class="form-group">
+            <label for="exampleInputFirstname">First Name</label>
+            <input type="text" name="fname" class="form-control" id="exampleInputFirstname"
+                placeholder="First Name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputLastname">Last Name</label>
+            <input type="text" name="lname" class="form-control" id="exampleInputLastname"
+                placeholder="Last Name">
+        </div> -->
+
+        <!-- <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                placeholder="Password">
+        </div> -->
+        <!-- <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div> -->
+        <!-- <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</body>
+<script>
+
+function required()
+{
+var empt = (document.forms["form1"]["fname"].value);
+if (empt == "")
+{
+alert("Please input a Value");
+return false;
+}
+else 
+{
+alert('Code has accepted : you can try another');
+return true; 
+}
+}
+</script>
+
+</html> -->
