@@ -13,4 +13,7 @@ router.post("/checkLogin", controller.checkLogin);
 router.get("/register", controller.registerPage);
 router.post("/checkRegister", controller.checkRegister);
 
+router.get("/forgot-password", controller.forgotPage);
+router.post("/forgotmail", controller.sendmail);
+
 module.exports=router;

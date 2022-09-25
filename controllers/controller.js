@@ -6,6 +6,7 @@ var mysql2=require("mysql2");
 var dotenv=require("dotenv").config()
 var db=require("../models/model");
 var USERS=require("../models/structure");
+var transporter=require("../controllers/nodemailer")
 
 db.sequelize.sync();
 
@@ -84,5 +85,33 @@ module.exports={
                 //res.send("Wrong Password!");
             }
         }
-    }  
+    },
+    
+    forgotPage: (req,res)=>{
+        res.render("forgotPage", {
+            message: ""
+        })
+    },
+
+    sendmail: (req,res)=>{
+
+        var loginId=req.body.email;
+        console.log(loginId);
+        
+        var mailOptions = {
+            from: 'adityap129btechcse2023@kccitm.edu.in',
+            to: loginId,
+            subject: 'Sending Email using Node.js',
+            text: 'Hey! How you doin...'
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } 
+            else {
+              console.log('Email sent successfully!: ' + info.response);
+            }
+          });
+    }
 }
