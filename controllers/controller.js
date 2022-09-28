@@ -8,6 +8,7 @@ var dotenv=require("dotenv").config()
 var db=require("../models/model");
 var USERS=require("../models/structure");
 var transporter=require("../controllers/nodemailer")
+var jwt=require("jsonwebtoken");
 
 db.sequelize.sync();
 
@@ -77,8 +78,17 @@ module.exports={
         {
             if(result.upass==password){
                 console.log(result);
+                
+                //jwt generation
+                var user={
+                    user: result.uid  
+                } 
+                var token=jwt.sign(user, "secretkey")
+                console.log(token);
+
                 res.send("Successfully Logged In!");
             }
+
             else{
                 res.render("login", {
                     message: "Wrong Password!"
@@ -94,10 +104,70 @@ module.exports={
         })
     },
 
-    sendmail: (req,res)=>{
+    sendmail: async (req,res)=>{
 
         var loginId=req.body.email;
         console.log(loginId);
+        var result=await users.findOne({where: {uid: loginId}});
+
+        if(result==null)
+        {
+            res.render("forgotPage", {
+                message: "User NOT Found!, Please Register..."
+            })
+            console.log("User NOt Found!");
+        }
+        else
+        {
+            var tokenstring = randomstring.generate({
+                length: 12,
+                charset: 'alphabetic'
+            });
+            console.log(tokenstring);
+            var tokendata={
+                uid: loginId,
+                token: tokenstring,
+                state: "ACTIVE"
+            }
+            emailverify
+                .findOne({where: {uid: loginId}})
+                .then(function(data){
+                    if(data)
+                    {
+                        data.update({token: tokenstring})
+                    }
+                    else{
+                        data=emailverify.create(tokendata)
+                    }
+                    data=JSON.parse(JSON.stringify(data));
+                    var tokenstr=data.token;
+                    var link="http://localhost:3000/verify-email/"+tokenstr;
+                    console.log(link);
+                    let info=transporter.sendMail({
+                        from: "",
+                        to: loginId,
+                        subject: "Password Reset email",
+                        template: "email",
+                        context: {
+                            name: "User",
+                            url: link,
+                            company: tokenstr
+                        }
+                    });
+                })
+
+                .then(tokendata=>{
+                    res.render("mailsent", {
+                        message: ""
+                    })  
+                })
+                .catch(err=>{
+                    console.log(err);
+                    res.render("mailsent", {
+                        message: "error"
+                    })
+                })
+        }
         
         var mailOptions = {
             from: 'adityap129btechcse2023@kccitm.edu.in',
@@ -114,5 +184,19 @@ module.exports={
               console.log('Email sent successfully!: ' + info.response);
             }
           });
+    },
+
+    verifyToken: async(req, res, next)=>{
+        const bearerHeader=req.headers["authorization"];
+        if( typeof bearerHeader !== "undefined")
+        {
+            const bearer=bearerHeader.split(" ");
+            const bearerToken=bearer[1];
+            req.token=bearerToken;
+            next();
+        }
+        else{
+            res.sendStatus(403);
+        }
     }
 }

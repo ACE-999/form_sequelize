@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 
-//turn on less secure apps access to use gmail
+//turn on less secure apps access to use gmail.
 var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
